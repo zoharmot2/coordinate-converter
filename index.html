@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ממיר קואורדינטות</title>
+  <meta name="description" content="המרת קואורדינטות בין WGS 84, ITM ו-UTM Zone 36N">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="converter" aria-labelledby="page-title">
+      <header>
+        <h1 id="page-title">ממיר קואורדינטות</h1>
+        <p>המרת נקודה בודדת בין WGS 84, רשת ישראל החדשה ו־UTM Zone 36N.</p>
+      </header>
+
+      <div class="grid">
+        <label>
+          <span>מערכת מקור</span>
+          <select id="source-crs">
+            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+            <option value="EPSG:2039">ITM — רשת ישראל החדשה</option>
+            <option value="EPSG:32636">UTM Zone 36N</option>
+          </select>
+        </label>
+
+        <label>
+          <span>מערכת יעד</span>
+          <select id="target-crs">
+            <option value="EPSG:2039">ITM — רשת ישראל החדשה</option>
+            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+            <option value="EPSG:32636">UTM Zone 36N</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="swap" class="secondary" type="button">החלף בין המערכות</button>
+
+      <div class="grid coordinates">
+        <label>
+          <span id="x-label">X / Longitude</span>
+          <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="34.7818">
+        </label>
+
+        <label>
+          <span id="y-label">Y / Latitude</span>
+          <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.0853">
+        </label>
+      </div>
+
+      <button id="convert" class="primary" type="button">המר</button>
+
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+
+      <section id="result" class="result" hidden>
+        <h2>תוצאה</h2>
+        <dl>
+          <div><dt>X</dt><dd id="result-x"></dd></div>
+          <div><dt>Y</dt><dd id="result-y"></dd></div>
+        </dl>
+        <button id="copy" class="secondary" type="button">העתק תוצאה</button>
+      </section>
+
+      <aside class="note">
+        <strong>שימו לב:</strong>
+        ב־WGS 84 יש להזין קודם Longitude ואחר כך Latitude. הכלי מיועד לשימוש כללי ואינו תחליף לתוכנת מדידה מוסמכת.
+      </aside>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
