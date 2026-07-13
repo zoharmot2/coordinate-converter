@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinate System Converter</title>
   <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and validated UTM zones.">
-  <link rel="stylesheet" href="style-v1.3.css">
+  <link rel="stylesheet" href="style-v1.4.css">
 </head>
 <body>
   <main class="page">
@@ -105,12 +105,12 @@
 
       <aside class="note">
         <strong>UTM validation:</strong>
-        The tool checks that the chosen zone and hemisphere match the geographic location. Standard Norway and Svalbard zone exceptions are also supported.
+        The tool validates numeric ranges, coordinate order, CRS area of use, UTM zone and hemisphere, and transformation consistency.
       </aside>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
-  <script src="app-v1.3.js"></script>
+  <script src="app-v1.4.js"></script>
 </body>
 </html>

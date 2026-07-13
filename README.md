@@ -1,25 +1,7 @@
-# Coordinate System Converter v1.3 — UTM validation
+# Coordinate System Converter v1.4 — Full validation
 
-## Fixes
+Added checks for WGS 84, ITM, ICS and UTM input ranges, coordinate order, CRS area of use, UTM zone and hemisphere, output plausibility, and round-trip transformation consistency.
 
-- Automatically determines the correct UTM zone from longitude and latitude.
-- Automatically determines northern or southern hemisphere.
-- Blocks conversion when a manually selected UTM zone is incompatible with the location.
-- Validates a declared source UTM zone after converting it back to WGS 84.
-- Supports the standard Norway and Svalbard UTM zone exceptions.
-- Warns when latitude is outside the normal UTM coverage of 80°S to 84°N.
+Upload `index.html`, `style-v1.4.css`, `app-v1.4.js`, and `README.md` to the repository root. Then wait for GitHub Pages deployment and perform a hard refresh.
 
-## Example
-
-Longitude 35°, latitude 32.5° belongs to UTM zone 36N.
-The tool will no longer accept zone 57N for this location.
-
-## Upload
-
-Replace `index.html` and upload:
-
-- `style-v1.3.css`
-- `app-v1.3.js`
-- `README.md`
-
-The versioned filenames avoid browser cache problems.
+The invalid ICS example Easting 35.2 / Northing 32.5 is now rejected before conversion.
