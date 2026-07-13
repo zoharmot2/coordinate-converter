@@ -4,21 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinate System Converter</title>
-  <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and UTM zones worldwide.">
-  <link rel="stylesheet" href="style-v1.2.css">
+  <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and validated UTM zones.">
+  <link rel="stylesheet" href="style-v1.3.css">
 </head>
 <body>
   <main class="page">
     <section class="converter" aria-labelledby="page-title">
       <header>
         <h1 id="page-title">Coordinate System Converter</h1>
-        <p>Convert a single coordinate between WGS 84, Israeli TM Grid, Israeli Old Grid, and any UTM zone.</p>
+        <p>Convert a single coordinate between WGS 84, Israeli TM Grid, Israeli Old Grid, and validated UTM zones.</p>
       </header>
 
-      <div class="grid crs-grid">
+      <div class="grid">
         <fieldset class="crs-panel">
           <legend>Source coordinate system</legend>
-
           <label>
             <span>Source CRS</span>
             <select id="source-crs">
@@ -41,12 +40,12 @@
                 <option value="S">Southern</option>
               </select>
             </label>
+            <p id="source-zone-help" class="zone-help"></p>
           </div>
         </fieldset>
 
         <fieldset class="crs-panel">
           <legend>Target coordinate system</legend>
-
           <label>
             <span>Target CRS</span>
             <select id="target-crs">
@@ -69,6 +68,11 @@
                 <option value="S">Southern</option>
               </select>
             </label>
+            <label class="check-row">
+              <input id="auto-target-utm" type="checkbox" checked>
+              <span>Automatically select the correct UTM zone</span>
+            </label>
+            <p id="target-zone-help" class="zone-help"></p>
           </div>
         </fieldset>
       </div>
@@ -78,11 +82,11 @@
       <div class="grid coordinates">
         <label>
           <span id="x-label">Longitude / X</span>
-          <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="34.7818">
+          <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="35">
         </label>
         <label>
           <span id="y-label">Latitude / Y</span>
-          <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.0853">
+          <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.5">
         </label>
       </div>
 
@@ -100,13 +104,13 @@
       </section>
 
       <aside class="note">
-        <strong>Coordinate order:</strong>
-        WGS 84 uses Longitude first and Latitude second. Projected systems use Easting first and Northing second.
+        <strong>UTM validation:</strong>
+        The tool checks that the chosen zone and hemisphere match the geographic location. Standard Norway and Svalbard zone exceptions are also supported.
       </aside>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
-  <script src="app-v1.2.js"></script>
+  <script src="app-v1.3.js"></script>
 </body>
 </html>

@@ -1,39 +1,25 @@
-# Coordinate System Converter v1.2 — Fixed
+# Coordinate System Converter v1.3 — UTM validation
 
-This release fixes:
+## Fixes
 
-1. UTM zone and hemisphere controls not appearing.
-2. Old cached JavaScript continuing to run.
-3. Incorrect Israeli Old Grid false northing.
-4. Incorrect datum transformation parameters for EPSG:2039 and EPSG:28193.
+- Automatically determines the correct UTM zone from longitude and latitude.
+- Automatically determines northern or southern hemisphere.
+- Blocks conversion when a manually selected UTM zone is incompatible with the location.
+- Validates a declared source UTM zone after converting it back to WGS 84.
+- Supports the standard Norway and Svalbard UTM zone exceptions.
+- Warns when latitude is outside the normal UTM coverage of 80°S to 84°N.
 
-## Important update instructions
+## Example
 
-Upload all four files to the root of the existing GitHub repository:
+Longitude 35°, latitude 32.5° belongs to UTM zone 36N.
+The tool will no longer accept zone 57N for this location.
 
-- index.html
-- style-v1.2.css
-- app-v1.2.js
-- README.md
+## Upload
 
-The new CSS and JavaScript filenames intentionally differ from the earlier release.
-This prevents the browser and GitHub Pages from reusing the old cached files.
+Replace `index.html` and upload:
 
-You may delete the old `style.css` and `app.js`, although this is not required.
+- `style-v1.3.css`
+- `app-v1.3.js`
+- `README.md`
 
-After committing the files:
-
-1. Wait for GitHub Pages deployment to complete.
-2. Open the page.
-3. Perform a hard refresh: Ctrl+F5 on Windows or Command+Shift+R on macOS.
-
-## Test
-
-For longitude 35.2 and latitude 32.6:
-
-- Source: WGS 84
-- Target: UTM
-- Zone: 36
-- Hemisphere: Northern
-
-The UTM selectors should appear immediately after choosing UTM.
+The versioned filenames avoid browser cache problems.
