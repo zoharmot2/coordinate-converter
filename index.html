@@ -1,70 +1,131 @@
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ממיר קואורדינטות</title>
-  <meta name="description" content="המרת קואורדינטות בין WGS 84, ITM ו-UTM Zone 36N">
+  <title>Coordinate System Converter</title>
+  <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and UTM zones worldwide.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="page">
     <section class="converter" aria-labelledby="page-title">
       <header>
-        <h1 id="page-title">ממיר קואורדינטות</h1>
-        <p>המרת נקודה בודדת בין WGS 84, רשת ישראל החדשה ו־UTM Zone 36N.</p>
+        <h1 id="page-title">Coordinate System Converter</h1>
+        <p>
+          Convert a single coordinate between WGS 84, Israeli TM Grid,
+          Israeli Old Grid, and any UTM zone.
+        </p>
       </header>
 
       <div class="grid">
-        <label>
-          <span>מערכת מקור</span>
-          <select id="source-crs">
-            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-            <option value="EPSG:2039">ITM — רשת ישראל החדשה</option>
-            <option value="EPSG:32636">UTM Zone 36N</option>
-          </select>
-        </label>
+        <fieldset class="crs-panel">
+          <legend>Source coordinate system</legend>
 
-        <label>
-          <span>מערכת יעד</span>
-          <select id="target-crs">
-            <option value="EPSG:2039">ITM — רשת ישראל החדשה</option>
-            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-            <option value="EPSG:32636">UTM Zone 36N</option>
-          </select>
-        </label>
+          <label>
+            <span>Source CRS</span>
+            <select id="source-crs">
+              <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+              <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
+              <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
+              <option value="UTM">UTM</option>
+            </select>
+          </label>
+
+          <div id="source-utm-options" class="utm-options" hidden>
+            <label>
+              <span>UTM zone</span>
+              <input id="source-zone" type="number" min="1" max="60" value="36">
+            </label>
+
+            <label>
+              <span>Hemisphere</span>
+              <select id="source-hemisphere">
+                <option value="N">Northern</option>
+                <option value="S">Southern</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="crs-panel">
+          <legend>Target coordinate system</legend>
+
+          <label>
+            <span>Target CRS</span>
+            <select id="target-crs">
+              <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
+              <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+              <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
+              <option value="UTM">UTM</option>
+            </select>
+          </label>
+
+          <div id="target-utm-options" class="utm-options" hidden>
+            <label>
+              <span>UTM zone</span>
+              <input id="target-zone" type="number" min="1" max="60" value="36">
+            </label>
+
+            <label>
+              <span>Hemisphere</span>
+              <select id="target-hemisphere">
+                <option value="N">Northern</option>
+                <option value="S">Southern</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
       </div>
 
-      <button id="swap" class="secondary" type="button">החלף בין המערכות</button>
+      <button id="swap" class="secondary" type="button">Swap source and target</button>
 
       <div class="grid coordinates">
         <label>
-          <span id="x-label">X / Longitude</span>
+          <span id="x-label">Longitude / X</span>
           <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="34.7818">
         </label>
 
         <label>
-          <span id="y-label">Y / Latitude</span>
+          <span id="y-label">Latitude / Y</span>
           <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.0853">
         </label>
       </div>
 
-      <button id="convert" class="primary" type="button">המר</button>
+      <button id="convert" class="primary" type="button">Convert coordinates</button>
 
       <p id="message" class="message" role="status" aria-live="polite"></p>
 
       <section id="result" class="result" hidden>
-        <h2>תוצאה</h2>
+        <h2>Converted coordinate</h2>
+        <p id="result-crs" class="result-crs"></p>
+
         <dl>
-          <div><dt>X</dt><dd id="result-x"></dd></div>
-          <div><dt>Y</dt><dd id="result-y"></dd></div>
+          <div>
+            <dt id="result-x-label">X</dt>
+            <dd id="result-x"></dd>
+          </div>
+          <div>
+            <dt id="result-y-label">Y</dt>
+            <dd id="result-y"></dd>
+          </div>
         </dl>
-        <button id="copy" class="secondary" type="button">העתק תוצאה</button>
+
+        <button id="copy" class="secondary" type="button">Copy result</button>
+        <button id="use-result" class="secondary" type="button">Use result as new input</button>
       </section>
 
       <aside class="note">
-        <strong>שימו לב:</strong>
-        ב־WGS 84 יש להזין קודם Longitude ואחר כך Latitude. הכלי מיועד לשימוש כללי ואינו תחליף לתוכנת מדידה מוסמכת.
+        <strong>Coordinate order:</strong>
+        WGS 84 uses Longitude first and Latitude second. Projected systems use
+        Easting first and Northing second.
+      </aside>
+
+      <aside class="note warning">
+        <strong>Accuracy notice:</strong>
+        This browser tool is intended for general GIS and educational use.
+        For cadastral or surveying work, verify the transformation with an
+        authoritative geodetic service.
       </aside>
     </section>
   </main>

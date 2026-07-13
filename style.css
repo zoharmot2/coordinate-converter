@@ -5,7 +5,7 @@
 :root {
   font-family: Arial, Helvetica, sans-serif;
   color: #1f2937;
-  background: #f4f6f8;
+  background: #f3f5f7;
 }
 
 body {
@@ -18,11 +18,11 @@ body {
 }
 
 .converter {
-  width: min(760px, 100%);
+  width: min(900px, 100%);
   margin: 0 auto;
   padding: 28px;
   background: #fff;
-  border: 1px solid #d9dee5;
+  border: 1px solid #d8dee6;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
@@ -33,7 +33,7 @@ h1 {
 }
 
 header p {
-  margin: 0 0 26px;
+  margin: 0 0 24px;
   color: #4b5563;
   line-height: 1.6;
 }
@@ -44,8 +44,16 @@ header p {
   gap: 18px;
 }
 
-.coordinates {
-  margin-top: 22px;
+.crs-panel {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid #cfd6df;
+  border-radius: 9px;
+}
+
+.crs-panel legend {
+  padding: 0 8px;
+  font-weight: 700;
 }
 
 label span {
@@ -70,9 +78,26 @@ select {
   background: #fff;
 }
 
-input {
+.coordinates input {
   direction: ltr;
   text-align: left;
+}
+
+.utm-options {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) minmax(140px, 1.2fr);
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e1e5ea;
+}
+
+.utm-options[hidden] {
+  display: none;
+}
+
+.coordinates {
+  margin-top: 22px;
 }
 
 button {
@@ -93,6 +118,7 @@ button {
 
 .secondary {
   margin-top: 16px;
+  margin-right: 8px;
   color: #1f2937;
   background: #fff;
   border: 1px solid #8b97a6;
@@ -132,7 +158,12 @@ select:focus-visible {
 }
 
 .result h2 {
-  margin-top: 0;
+  margin: 0 0 6px;
+}
+
+.result-crs {
+  margin: 0 0 12px;
+  color: #4b5563;
 }
 
 .result dl {
@@ -141,10 +172,9 @@ select:focus-visible {
 
 .result dl div {
   display: grid;
-  grid-template-columns: 70px 1fr;
+  grid-template-columns: 110px 1fr;
   gap: 12px;
   padding: 8px 0;
-  direction: ltr;
   text-align: left;
 }
 
@@ -160,17 +190,30 @@ select:focus-visible {
 .note {
   margin-top: 22px;
   padding: 14px;
-  border-right: 4px solid #64748b;
+  border-left: 4px solid #64748b;
   background: #f8fafc;
   line-height: 1.6;
 }
 
-@media (max-width: 620px) {
+.note.warning {
+  border-left-color: #a16207;
+  background: #fffbeb;
+}
+
+@media (max-width: 700px) {
   .converter {
     padding: 20px;
   }
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .utm-options {
+    grid-template-columns: 1fr;
+  }
+
+  .secondary {
+    margin-right: 0;
   }
 }
