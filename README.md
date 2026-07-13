@@ -1,40 +1,39 @@
-# Coordinate System Converter — Version 1.1
+# Coordinate System Converter v1.2 — Fixed
 
-This version supports conversion between:
+This release fixes:
 
-- WGS 84 geographic coordinates — EPSG:4326
-- Israeli TM Grid (ITM) — EPSG:2039
-- Israeli Old Grid / Israeli CS Grid — EPSG:28193
-- Any WGS 84 UTM zone from 1 to 60
-- Northern and Southern UTM hemispheres
+1. UTM zone and hemisphere controls not appearing.
+2. Old cached JavaScript continuing to run.
+3. Incorrect Israeli Old Grid false northing.
+4. Incorrect datum transformation parameters for EPSG:2039 and EPSG:28193.
 
-## Updating the existing GitHub Pages site
+## Important update instructions
 
-1. Extract this ZIP file.
-2. Open your existing `coordinate-converter` repository on GitHub.
-3. Choose **Add file → Upload files**.
-4. Upload and replace:
-   - `index.html`
-   - `style.css`
-   - `app.js`
-   - `README.md`
-5. Commit the changes.
-6. Wait briefly for GitHub Pages to redeploy.
-7. Refresh the published page, preferably with a hard refresh.
+Upload all four files to the root of the existing GitHub repository:
 
-## UTM input
+- index.html
+- style-v1.2.css
+- app-v1.2.js
+- README.md
 
-When UTM is selected as source or target:
+The new CSS and JavaScript filenames intentionally differ from the earlier release.
+This prevents the browser and GitHub Pages from reusing the old cached files.
 
-- Select a zone from 1 to 60.
-- Select Northern or Southern hemisphere.
-- Enter projected coordinates as Easting, then Northing.
+You may delete the old `style.css` and `app.js`, although this is not required.
 
-## Coordinate order
+After committing the files:
 
-- WGS 84: Longitude, Latitude
-- ITM, Israeli Old Grid and UTM: Easting, Northing
+1. Wait for GitHub Pages deployment to complete.
+2. Open the page.
+3. Perform a hard refresh: Ctrl+F5 on Windows or Command+Shift+R on macOS.
 
-## WordPress embedding
+## Test
 
-The existing iframe does not need to change if the GitHub Pages URL remains the same.
+For longitude 35.2 and latitude 32.6:
+
+- Source: WGS 84
+- Target: UTM
+- Zone: 36
+- Hemisphere: Northern
+
+The UTM selectors should appear immediately after choosing UTM.

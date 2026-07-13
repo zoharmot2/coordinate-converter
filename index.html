@@ -5,20 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinate System Converter</title>
   <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and UTM zones worldwide.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-v1.2.css">
 </head>
 <body>
   <main class="page">
     <section class="converter" aria-labelledby="page-title">
       <header>
         <h1 id="page-title">Coordinate System Converter</h1>
-        <p>
-          Convert a single coordinate between WGS 84, Israeli TM Grid,
-          Israeli Old Grid, and any UTM zone.
-        </p>
+        <p>Convert a single coordinate between WGS 84, Israeli TM Grid, Israeli Old Grid, and any UTM zone.</p>
       </header>
 
-      <div class="grid">
+      <div class="grid crs-grid">
         <fieldset class="crs-panel">
           <legend>Source coordinate system</legend>
 
@@ -32,12 +29,11 @@
             </select>
           </label>
 
-          <div id="source-utm-options" class="utm-options" hidden>
+          <div id="source-utm-options" class="utm-options is-hidden">
             <label>
               <span>UTM zone</span>
-              <input id="source-zone" type="number" min="1" max="60" value="36">
+              <select id="source-zone"></select>
             </label>
-
             <label>
               <span>Hemisphere</span>
               <select id="source-hemisphere">
@@ -61,12 +57,11 @@
             </select>
           </label>
 
-          <div id="target-utm-options" class="utm-options" hidden>
+          <div id="target-utm-options" class="utm-options is-hidden">
             <label>
               <span>UTM zone</span>
-              <input id="target-zone" type="number" min="1" max="60" value="36">
+              <select id="target-zone"></select>
             </label>
-
             <label>
               <span>Hemisphere</span>
               <select id="target-hemisphere">
@@ -85,7 +80,6 @@
           <span id="x-label">Longitude / X</span>
           <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="34.7818">
         </label>
-
         <label>
           <span id="y-label">Latitude / Y</span>
           <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.0853">
@@ -93,44 +87,26 @@
       </div>
 
       <button id="convert" class="primary" type="button">Convert coordinates</button>
-
       <p id="message" class="message" role="status" aria-live="polite"></p>
 
-      <section id="result" class="result" hidden>
+      <section id="result" class="result is-hidden">
         <h2>Converted coordinate</h2>
         <p id="result-crs" class="result-crs"></p>
-
         <dl>
-          <div>
-            <dt id="result-x-label">X</dt>
-            <dd id="result-x"></dd>
-          </div>
-          <div>
-            <dt id="result-y-label">Y</dt>
-            <dd id="result-y"></dd>
-          </div>
+          <div><dt id="result-x-label">X</dt><dd id="result-x"></dd></div>
+          <div><dt id="result-y-label">Y</dt><dd id="result-y"></dd></div>
         </dl>
-
         <button id="copy" class="secondary" type="button">Copy result</button>
-        <button id="use-result" class="secondary" type="button">Use result as new input</button>
       </section>
 
       <aside class="note">
         <strong>Coordinate order:</strong>
-        WGS 84 uses Longitude first and Latitude second. Projected systems use
-        Easting first and Northing second.
-      </aside>
-
-      <aside class="note warning">
-        <strong>Accuracy notice:</strong>
-        This browser tool is intended for general GIS and educational use.
-        For cadastral or surveying work, verify the transformation with an
-        authoritative geodetic service.
+        WGS 84 uses Longitude first and Latitude second. Projected systems use Easting first and Northing second.
       </aside>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
-  <script src="app.js"></script>
+  <script src="app-v1.2.js"></script>
 </body>
 </html>
