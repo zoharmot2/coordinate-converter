@@ -7,7 +7,7 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.3.css">
+  <link rel="stylesheet" href="style-v2.4.css">
 </head>
 <body>
   <main class="page">
@@ -66,6 +66,9 @@
           <button id="lookup-result-place" class="secondary" type="button">
             Look up place name
           </button>
+          <button id="share-conversion" class="secondary" type="button">
+            Copy shareable link
+          </button>
 
           <section id="single-place-result" class="place-result is-hidden" aria-live="polite">
             <h3>Nearest mapped place or address</h3>
@@ -101,15 +104,42 @@
           </p>
 
           <div id="cursor-coordinate-panel" class="cursor-coordinate-panel">
-            <strong>Coordinates under cursor</strong>
-            <div class="cursor-grid">
-              <span>WGS 84</span>
-              <code id="cursor-wgs84">Move the pointer over the map</code>
-              <span>Automatic UTM</span>
-              <code id="cursor-utm">—</code>
-              <span>Israeli TM Grid</span>
-              <code id="cursor-itm">Outside area of use</code>
+            <div class="cursor-heading">
+              <strong>Coordinates under cursor</strong>
+              <button id="copy-cursor-coordinate" class="secondary compact" type="button" disabled>
+                Copy selected format
+              </button>
             </div>
+
+            <label class="cursor-crs-select">
+              <span>Primary cursor coordinate system</span>
+              <select id="cursor-display-crs">
+                <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+                <option value="AUTO_UTM">Automatic WGS 84 / UTM</option>
+                <option value="EPSG:2039">Israeli TM Grid (ITM)</option>
+                <option value="EPSG:28193">Israeli Old Grid (ICS)</option>
+                <option value="EPSG:3857">Web Mercator</option>
+                <option value="SOURCE">Current source CRS</option>
+                <option value="TARGET">Current target CRS</option>
+              </select>
+            </label>
+
+            <div class="cursor-primary">
+              <span id="cursor-primary-label">WGS 84</span>
+              <code id="cursor-primary-value">Move the pointer over the map</code>
+            </div>
+
+            <details class="cursor-more">
+              <summary>Show additional coordinate formats</summary>
+              <div class="cursor-grid">
+                <span>WGS 84</span>
+                <code id="cursor-wgs84">Move the pointer over the map</code>
+                <span>Automatic UTM</span>
+                <code id="cursor-utm">—</code>
+                <span>Israeli TM Grid</span>
+                <code id="cursor-itm">Outside area of use</code>
+              </div>
+            </details>
           </div>
 
           <section id="map-place-result" class="place-result is-hidden" aria-live="polite">
@@ -250,8 +280,8 @@
         <summary>Supported CRS catalog</summary>
         <div id="supported-crs-list" class="supported-crs-list"></div>
         <p class="help-text">
-          Search is local and works without an API key. Only systems listed here
-          can be selected in version 2.2.
+          Search is local and works without an API key. Version 2.4 also supports
+          shareable conversion links that preserve the selected systems and coordinate.
         </p>
       </details>
 
@@ -348,6 +378,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.3.js"></script>
+  <script src="app-v2.4.js"></script>
 </body>
 </html>

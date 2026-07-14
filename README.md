@@ -1,69 +1,63 @@
-# Coordinate Converter v2.3
+# Coordinate Converter v2.4
 
-Version 2.3 combines two additions:
+Version 2.4 adds advanced map tools and shareable conversion links.
 
-## 2.3A — Reverse geocoding
+## Primary cursor CRS
 
-For a successfully converted single coordinate or a point selected on the map,
-the user can explicitly click a button to look up the nearest mapped place or
-address.
+The coordinates-under-cursor panel now includes a selectable primary display:
 
-The lookup displays available fields such as:
+- WGS 84.
+- Automatic WGS 84 / UTM.
+- Israeli TM Grid.
+- Israeli Old Grid.
+- Web Mercator.
+- The currently selected source CRS.
+- The currently selected target CRS.
 
-- Mapped name.
-- Street and house number.
-- District.
-- City, town, village, or municipality.
-- County.
-- State or region.
-- Postcode.
-- Country.
+The selected coordinate can be copied with one button. Additional WGS 84, UTM,
+and ITM formats remain available in an expandable panel.
 
-### Public Nominatim safeguards
+## Shareable conversion links
 
-This static GitHub Pages version uses the public OpenStreetMap Nominatim
-reverse endpoint only for direct, user-triggered single-point requests.
+After a successful single-coordinate conversion, “Copy shareable link” creates
+a URL containing:
 
-The application:
+- Input X and Y.
+- Source CRS.
+- Target CRS.
+- Source UTM zone and hemisphere, when applicable.
+- Target UTM settings, when applicable.
+- Automatic target-UTM preference.
 
-- Does not automatically geocode spreadsheet rows.
-- Queues lookups one at a time.
-- Waits at least 1.1 seconds between network requests.
-- Caches up to 250 recent results in browser local storage.
-- Displays OpenStreetMap/Nominatim attribution.
-- Sends coordinates only after the user clicks a lookup button.
+Opening the shared URL:
 
-Reverse geocoding returns the closest suitable indexed OpenStreetMap feature,
-which may not always be the exact address at the coordinate.
+1. Restores the selected systems.
+2. Restores the coordinate.
+3. Opens the single-coordinate tab.
+4. Runs the conversion automatically.
+5. Displays the point on the map.
 
-## 2.3B — Coordinates under the cursor
-
-Moving the mouse over the interactive map shows:
-
-- WGS 84 longitude and latitude.
-- The automatically selected WGS 84 UTM zone, hemisphere, Easting, and Northing.
-- Israeli TM Grid coordinates when the cursor is inside the EPSG:2039 area of use.
-
-These values are calculated locally with Proj4js and do not make network
-geocoding requests.
+No coordinate data is sent to a server by this feature. It is encoded in the
+URL query string, so users should not use shareable links for sensitive
+locations.
 
 ## Existing functionality retained
 
-- Searchable local CRS catalog.
-- Single coordinate conversion.
-- XLSX, XLS and CSV batch conversion.
-- XLSX result and error-report downloads.
-- Input, area-of-use, UTM, and round-trip validation.
-- Interactive Leaflet maps.
+- Local searchable CRS catalog.
+- Reverse geocoding for explicit single-point requests.
+- Live WGS 84, UTM, and ITM cursor coordinates.
+- Excel / CSV batch conversion and XLSX downloads.
+- Map previews.
+- CRS and area-of-use validation.
 
 ## GitHub Pages update
 
 Upload to the repository root:
 
 - index.html
-- style-v2.3.css
-- app-v2.3.js
+- style-v2.4.css
+- app-v2.4.js
 - README.md
 
-The WordPress iframe URL remains unchanged. After GitHub Pages finishes
-deploying, perform a hard refresh.
+The WordPress iframe URL remains unchanged. After deployment, perform a hard
+refresh.
