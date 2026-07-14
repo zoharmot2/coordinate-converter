@@ -1,63 +1,70 @@
-# Coordinate Converter v2.4
+# Coordinate Converter v2.4.1
 
-Version 2.4 adds advanced map tools and shareable conversion links.
+Version 2.4.1 is a usability and interface refinement release based on version 2.4.
 
-## Primary cursor CRS
+## Text update
 
-The coordinates-under-cursor panel now includes a selectable primary display:
+The introductory sentence now reads:
 
-- WGS 84.
-- Automatic WGS 84 / UTM.
-- Israeli TM Grid.
-- Israeli Old Grid.
-- Web Mercator.
-- The currently selected source CRS.
-- The currently selected target CRS.
+> Convert a single coordinate or an Excel/CSV file using a searchable local CRS
+> catalog, including WGS 84, Israeli grids, UTM, Web Mercator, British National
+> Grid & Lambert-93.
 
-The selected coordinate can be copied with one button. Additional WGS 84, UTM,
-and ITM formats remain available in an expandable panel.
+## Expanded introduction
 
-## Shareable conversion links
+A short explanation now tells users that the application can:
 
-After a successful single-coordinate conversion, “Copy shareable link” creates
-a URL containing:
+- Convert one coordinate.
+- Process Excel and CSV files.
+- Display converted points on a map.
+- Copy coordinates in several CRS formats.
+- Look up mapped place names.
+- Create shareable conversion links.
 
-- Input X and Y.
-- Source CRS.
-- Target CRS.
-- Source UTM zone and hemisphere, when applicable.
-- Target UTM settings, when applicable.
-- Automatic target-UTM preference.
+An expandable “How to use the converter” section explains the single-point,
+spreadsheet, and interactive-map workflows.
 
-Opening the shared URL:
+## CRS labels
 
-1. Restores the selected systems.
-2. Restores the coordinate.
-3. Opens the single-coordinate tab.
-4. Runs the conversion automatically.
-5. Displays the point on the map.
+The labels now read:
 
-No coordinate data is sent to a server by this feature. It is encoded in the
-URL query string, so users should not use shareable links for sensitive
-locations.
+- Selected Source CRS
+- Selected Target CRS
 
-## Existing functionality retained
+These changes apply to both:
 
-- Local searchable CRS catalog.
-- Reverse geocoding for explicit single-point requests.
-- Live WGS 84, UTM, and ITM cursor coordinates.
-- Excel / CSV batch conversion and XLSX downloads.
-- Map previews.
-- CRS and area-of-use validation.
+- The Single coordinate tab.
+- The Excel / CSV batch tab.
+
+## Visual emphasis
+
+The selected source and target CRS dropdowns now use:
+
+- A stronger blue border.
+- A pale blue background.
+- Bold text.
+- A more visible blue focus state.
+
+## Workflow guidance
+
+The single-coordinate tab now shows:
+
+1. Step 1 — Select coordinate systems.
+2. Step 2 — Enter coordinates.
+3. Step 3 — Convert.
 
 ## GitHub Pages update
 
-Upload to the repository root:
+Upload these files to the repository root:
 
 - index.html
-- style-v2.4.css
-- app-v2.4.js
+- style-v2.4.1.css
+- app-v2.4.1.js
 - README.md
 
-The WordPress iframe URL remains unchanged. After deployment, perform a hard
-refresh.
+The WordPress iframe URL remains unchanged. To avoid cached content, use a
+version query such as:
+
+`?v=2.4.1`
+
+After deployment, hard-refresh the page.

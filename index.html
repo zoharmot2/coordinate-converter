@@ -7,7 +7,7 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.4.css">
+  <link rel="stylesheet" href="style-v2.4.1.css">
 </head>
 <body>
   <main class="page">
@@ -17,9 +17,55 @@
         <p>
           Convert a single coordinate or an Excel/CSV file using a searchable
           local CRS catalog, including WGS 84, Israeli grids, UTM, Web Mercator,
-          British National Grid, and Lambert-93.
+          British National Grid &amp; Lambert-93.
         </p>
       </header>
+
+      <section class="tool-introduction" aria-labelledby="how-to-use-title">
+        <p>
+          This tool converts coordinates between common geographic and projected
+          coordinate reference systems. You can work with one point at a time,
+          process an entire spreadsheet, inspect results on an interactive map,
+          and copy or share converted coordinates.
+        </p>
+
+        <details class="usage-details">
+          <summary id="how-to-use-title">How to use the converter</summary>
+          <div class="usage-grid">
+            <section>
+              <h2>Single coordinate</h2>
+              <ol>
+                <li>Search for and select the source CRS.</li>
+                <li>Search for and select the target CRS.</li>
+                <li>Enter X/Y or Longitude/Latitude values.</li>
+                <li>Select UTM zone and hemisphere when required.</li>
+                <li>Click <strong>Convert coordinates</strong>.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>Excel / CSV batch</h2>
+              <ol>
+                <li>Open the <strong>Excel / CSV batch</strong> tab.</li>
+                <li>Upload an XLSX, XLS or CSV file.</li>
+                <li>Select the worksheet, header row, X column and Y column.</li>
+                <li>Select the source and target CRS.</li>
+                <li>Convert and download the resulting XLSX file.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>Interactive map</h2>
+              <ol>
+                <li>Click the map to choose a WGS 84 location.</li>
+                <li>Use the map point as a new input.</li>
+                <li>Inspect coordinates under the cursor in several CRS formats.</li>
+                <li>Look up the nearest mapped place when needed.</li>
+              </ol>
+            </section>
+          </div>
+        </details>
+      </section>
 
       <nav class="tabs" aria-label="Conversion mode">
         <button id="single-tab" class="tab-button is-active" type="button"
@@ -34,7 +80,10 @@
 
       <section id="single-panel" class="tab-panel" role="tabpanel"
                aria-labelledby="single-tab">
+        <h2 class="workflow-step">Step 1 — Select coordinate systems</h2>
         <div id="single-crs-controls"></div>
+
+        <h2 class="workflow-step coordinate-step">Step 2 — Enter coordinates</h2>
 
         <div class="grid coordinates">
           <label>
@@ -49,6 +98,7 @@
           </label>
         </div>
 
+        <h2 class="workflow-step convert-step">Step 3 — Convert</h2>
         <button id="single-convert" class="primary" type="button">
           Convert coordinates
         </button>
@@ -312,8 +362,8 @@
         <div data-role="source-search-results" class="crs-search-results is-hidden"
              role="listbox" aria-label="Source CRS search results"></div>
         <label>
-          <span>Source CRS</span>
-          <select data-role="source-crs"></select>
+          <span>Selected Source CRS</span>
+          <select data-role="source-crs" class="selected-crs-select"></select>
         </label>
 
         <div data-role="source-utm-options" class="utm-options is-hidden">
@@ -345,8 +395,8 @@
         <div data-role="target-search-results" class="crs-search-results is-hidden"
              role="listbox" aria-label="Target CRS search results"></div>
         <label>
-          <span>Target CRS</span>
-          <select data-role="target-crs"></select>
+          <span>Selected Target CRS</span>
+          <select data-role="target-crs" class="selected-crs-select"></select>
         </label>
 
         <div data-role="target-utm-options" class="utm-options is-hidden">
@@ -378,6 +428,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.4.js"></script>
+  <script src="app-v2.4.1.js"></script>
 </body>
 </html>
