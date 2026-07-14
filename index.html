@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinate Converter</title>
   <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
-  <link rel="stylesheet" href="style-v2.0.css">
+  <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style-v2.1.css">
 </head>
 <body>
   <main class="page">
@@ -61,6 +63,28 @@
           </dl>
           <button id="single-copy" class="secondary" type="button">Copy result</button>
         </section>
+
+        <section class="map-section" aria-labelledby="single-map-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="single-map-title">Interactive map</h2>
+              <p>Click the map to choose a WGS 84 location, or convert a coordinate to display it.</p>
+            </div>
+            <div class="map-actions">
+              <button id="use-map-point" class="secondary compact" type="button" disabled>
+                Use map point as input
+              </button>
+              <button id="clear-map-point" class="secondary compact" type="button" disabled>
+                Clear point
+              </button>
+            </div>
+          </div>
+          <div id="single-map" class="map" aria-label="Interactive coordinate map"></div>
+          <p id="map-coordinate-readout" class="help-text map-readout">
+            Click anywhere on the map to select a location.
+          </p>
+        </section>
+
       </section>
 
       <section id="batch-panel" class="tab-panel is-hidden" role="tabpanel"
@@ -163,6 +187,13 @@
             <div><strong id="batch-errors">0</strong><span>Errors</span></div>
           </div>
 
+
+          <section id="batch-map-section" class="batch-map-section is-hidden">
+            <h3>Converted points preview</h3>
+            <p id="batch-map-note" class="help-text"></p>
+            <div id="batch-map" class="map batch-map" aria-label="Map preview of converted spreadsheet points"></div>
+          </section>
+
           <button id="download-results" class="primary" type="button">
             Download converted XLSX
           </button>
@@ -258,6 +289,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-  <script src="app-v2.0.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app-v2.1.js"></script>
 </body>
 </html>
