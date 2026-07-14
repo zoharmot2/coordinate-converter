@@ -3,114 +3,261 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coordinate System Converter</title>
-  <meta name="description" content="Convert coordinates between WGS 84, Israeli TM Grid, Israeli Old Grid, and validated UTM zones.">
-  <link rel="stylesheet" href="style-v1.4.css">
+  <title>Coordinate Converter</title>
+  <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
+  <link rel="stylesheet" href="style-v2.0.css">
 </head>
 <body>
   <main class="page">
     <section class="converter" aria-labelledby="page-title">
       <header>
         <h1 id="page-title">Coordinate Converter</h1>
-        <p>Convert a single coordinate between WGS 84, Israeli TM Grid, Israeli Old Grid, and validated UTM zones.</p>
+        <p>
+          Convert a single coordinate or an Excel/CSV file between WGS 84,
+          Israeli TM Grid, Israeli Old Grid, and validated UTM zones.
+        </p>
       </header>
 
-      <div class="grid">
-        <fieldset class="crs-panel">
-          <legend>Source coordinate system</legend>
+      <nav class="tabs" aria-label="Conversion mode">
+        <button id="single-tab" class="tab-button is-active" type="button"
+                role="tab" aria-selected="true" aria-controls="single-panel">
+          Single coordinate
+        </button>
+        <button id="batch-tab" class="tab-button" type="button"
+                role="tab" aria-selected="false" aria-controls="batch-panel">
+          Excel / CSV batch
+        </button>
+      </nav>
+
+      <section id="single-panel" class="tab-panel" role="tabpanel"
+               aria-labelledby="single-tab">
+        <div id="single-crs-controls"></div>
+
+        <div class="grid coordinates">
           <label>
-            <span>Source CRS</span>
-            <select id="source-crs">
-              <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-              <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
-              <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
-              <option value="UTM">UTM</option>
-            </select>
+            <span id="single-x-label">Longitude / X</span>
+            <input id="single-x" type="text" inputmode="decimal"
+                   autocomplete="off" placeholder="35.2">
+          </label>
+          <label>
+            <span id="single-y-label">Latitude / Y</span>
+            <input id="single-y" type="text" inputmode="decimal"
+                   autocomplete="off" placeholder="32.5">
+          </label>
+        </div>
+
+        <button id="single-convert" class="primary" type="button">
+          Convert coordinates
+        </button>
+
+        <p id="single-message" class="message" role="status" aria-live="polite"></p>
+
+        <section id="single-result" class="result is-hidden">
+          <h2>Converted coordinate</h2>
+          <p id="single-result-crs" class="result-crs"></p>
+          <dl>
+            <div><dt id="single-result-x-label">X</dt><dd id="single-result-x"></dd></div>
+            <div><dt id="single-result-y-label">Y</dt><dd id="single-result-y"></dd></div>
+          </dl>
+          <button id="single-copy" class="secondary" type="button">Copy result</button>
+        </section>
+      </section>
+
+      <section id="batch-panel" class="tab-panel is-hidden" role="tabpanel"
+               aria-labelledby="batch-tab">
+        <section class="batch-step">
+          <div class="section-heading">
+            <div>
+              <h2>1. Select a file</h2>
+              <p>XLSX, XLS or CSV; up to 50,000 data rows.</p>
+            </div>
+            <button id="download-template" class="secondary compact" type="button">
+              Download template
+            </button>
+          </div>
+
+          <label class="file-picker">
+            <span>Spreadsheet file</span>
+            <input id="batch-file" type="file"
+                   accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
           </label>
 
-          <div id="source-utm-options" class="utm-options is-hidden">
+          <p class="privacy-note">
+            The file is processed locally in your browser and is not uploaded to a server.
+          </p>
+        </section>
+
+        <section id="batch-setup" class="batch-step is-hidden">
+          <h2>2. Select worksheet and coordinate columns</h2>
+
+          <div class="grid">
             <label>
-              <span>UTM zone</span>
-              <select id="source-zone"></select>
+              <span>Worksheet</span>
+              <select id="batch-sheet"></select>
             </label>
             <label>
-              <span>Hemisphere</span>
-              <select id="source-hemisphere">
-                <option value="N">Northern</option>
-                <option value="S">Southern</option>
+              <span>Header row</span>
+              <select id="batch-header-row">
+                <option value="0">Row 1</option>
+                <option value="1">Row 2</option>
+                <option value="2">Row 3</option>
+                <option value="3">Row 4</option>
+                <option value="4">Row 5</option>
               </select>
             </label>
-            <p id="source-zone-help" class="zone-help"></p>
           </div>
-        </fieldset>
 
-        <fieldset class="crs-panel">
-          <legend>Target coordinate system</legend>
-          <label>
-            <span>Target CRS</span>
-            <select id="target-crs">
-              <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
-              <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-              <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
-              <option value="UTM">UTM</option>
-            </select>
-          </label>
-
-          <div id="target-utm-options" class="utm-options is-hidden">
+          <div class="grid">
             <label>
-              <span>UTM zone</span>
-              <select id="target-zone"></select>
+              <span>X / Longitude / Easting column</span>
+              <select id="batch-x-column"></select>
             </label>
             <label>
-              <span>Hemisphere</span>
-              <select id="target-hemisphere">
-                <option value="N">Northern</option>
-                <option value="S">Southern</option>
-              </select>
+              <span>Y / Latitude / Northing column</span>
+              <select id="batch-y-column"></select>
             </label>
-            <label class="check-row">
-              <input id="auto-target-utm" type="checkbox" checked>
-              <span>Automatically select the correct UTM zone</span>
-            </label>
-            <p id="target-zone-help" class="zone-help"></p>
           </div>
-        </fieldset>
-      </div>
+        </section>
 
-      <button id="swap" class="secondary" type="button">Swap source and target</button>
+        <section id="batch-crs-section" class="batch-step is-hidden">
+          <h2>3. Select coordinate systems</h2>
+          <div id="batch-crs-controls"></div>
+          <p class="help-text">
+            When automatic target UTM is enabled, each row is assigned its correct
+            UTM zone and the zone is recorded in the output file.
+          </p>
+        </section>
 
-      <div class="grid coordinates">
-        <label>
-          <span id="x-label">Longitude / X</span>
-          <input id="x" type="text" inputmode="decimal" autocomplete="off" placeholder="35">
-        </label>
-        <label>
-          <span id="y-label">Latitude / Y</span>
-          <input id="y" type="text" inputmode="decimal" autocomplete="off" placeholder="32.5">
-        </label>
-      </div>
+        <section id="batch-preview-section" class="batch-step is-hidden">
+          <div class="section-heading">
+            <div>
+              <h2>4. Preview</h2>
+              <p id="batch-summary"></p>
+            </div>
+          </div>
 
-      <button id="convert" class="primary" type="button">Convert coordinates</button>
-      <p id="message" class="message" role="status" aria-live="polite"></p>
+          <div class="table-wrap">
+            <table id="batch-preview-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
 
-      <section id="result" class="result is-hidden">
-        <h2>Converted coordinate</h2>
-        <p id="result-crs" class="result-crs"></p>
-        <dl>
-          <div><dt id="result-x-label">X</dt><dd id="result-x"></dd></div>
-          <div><dt id="result-y-label">Y</dt><dd id="result-y"></dd></div>
-        </dl>
-        <button id="copy" class="secondary" type="button">Copy result</button>
+          <button id="batch-convert" class="primary" type="button">
+            Convert file
+          </button>
+
+          <div id="batch-progress-wrap" class="progress-wrap is-hidden">
+            <progress id="batch-progress" max="100" value="0"></progress>
+            <span id="batch-progress-text">0%</span>
+          </div>
+
+          <p id="batch-message" class="message" role="status" aria-live="polite"></p>
+        </section>
+
+        <section id="batch-results" class="result is-hidden">
+          <h2>Batch conversion complete</h2>
+          <div class="stats-grid">
+            <div><strong id="batch-total">0</strong><span>Total rows</span></div>
+            <div><strong id="batch-success">0</strong><span>Converted</span></div>
+            <div><strong id="batch-errors">0</strong><span>Errors</span></div>
+          </div>
+
+          <button id="download-results" class="primary" type="button">
+            Download converted XLSX
+          </button>
+          <button id="download-errors" class="secondary is-hidden" type="button">
+            Download error report
+          </button>
+        </section>
       </section>
 
       <aside class="note">
         <strong>Validation:</strong>
-        The tool validates numeric ranges, coordinate order, CRS area of use, UTM zone and hemisphere, and transformation consistency.
+        Numeric format, coordinate order, CRS bounds, area of use, UTM zone and
+        hemisphere, and transformation consistency are checked before results are accepted.
+      </aside>
+
+      <aside class="note warning">
+        <strong>Accuracy notice:</strong>
+        Suitable for general GIS and educational use. Cadastral or surveying work
+        should be verified with an authoritative geodetic service.
       </aside>
     </section>
   </main>
 
+  <template id="crs-controls-template">
+    <div class="grid crs-grid">
+      <fieldset class="crs-panel">
+        <legend>Source coordinate system</legend>
+        <label>
+          <span>Source CRS</span>
+          <select data-role="source-crs">
+            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+            <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
+            <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
+            <option value="UTM">UTM</option>
+          </select>
+        </label>
+
+        <div data-role="source-utm-options" class="utm-options is-hidden">
+          <label>
+            <span>UTM zone</span>
+            <select data-role="source-zone"></select>
+          </label>
+          <label>
+            <span>Hemisphere</span>
+            <select data-role="source-hemisphere">
+              <option value="N">Northern</option>
+              <option value="S">Southern</option>
+            </select>
+          </label>
+          <p data-role="source-zone-help" class="help-text"></p>
+        </div>
+
+        <p data-role="source-range-help" class="help-text source-help"></p>
+      </fieldset>
+
+      <fieldset class="crs-panel">
+        <legend>Target coordinate system</legend>
+        <label>
+          <span>Target CRS</span>
+          <select data-role="target-crs">
+            <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
+            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
+            <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
+            <option value="UTM">UTM</option>
+          </select>
+        </label>
+
+        <div data-role="target-utm-options" class="utm-options is-hidden">
+          <label>
+            <span>UTM zone</span>
+            <select data-role="target-zone"></select>
+          </label>
+          <label>
+            <span>Hemisphere</span>
+            <select data-role="target-hemisphere">
+              <option value="N">Northern</option>
+              <option value="S">Southern</option>
+            </select>
+          </label>
+          <label class="check-row">
+            <input data-role="auto-target-utm" type="checkbox" checked>
+            <span>Automatically select the correct UTM zone</span>
+          </label>
+          <p data-role="target-zone-help" class="help-text"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <button data-role="swap" class="secondary" type="button">
+      Swap source and target
+    </button>
+  </template>
+
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
-  <script src="app-v1.4.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="app-v2.0.js"></script>
 </body>
 </html>
