@@ -1,51 +1,52 @@
-# Coordinate Converter v2.1
+# Coordinate Converter v2.2
 
-Version 2.1 adds interactive Leaflet maps to the validated single-coordinate
-and spreadsheet converter introduced in version 2.0.
+Version 2.2 adds a searchable local EPSG/CRS catalog while retaining:
 
-## New map features
+- Single-coordinate conversion.
+- Excel / CSV batch conversion and XLSX export.
+- Input and area-of-use validation.
+- Interactive Leaflet maps.
+- Automatic and manually validated UTM zones.
 
-### Single coordinate
+## Searchable CRS catalog
 
-- Displays every successfully converted coordinate on an interactive map.
-- Clicking the map selects a WGS 84 longitude/latitude.
-- “Use map point as input” changes the source CRS to WGS 84 and copies the
-  clicked location into the coordinate fields.
-- Marker popup shows longitude and latitude.
-- “Clear point” removes the selected marker.
+Search source and target systems by EPSG code, name, or common alias.
 
-### Excel / CSV
+Supported in this release:
 
-- After batch conversion, valid records are shown on a map.
-- Up to 1,000 successful records are rendered to protect browser performance.
-- The map automatically zooms to the displayed points.
-- Clicking a point shows its spreadsheet row and WGS 84 location.
-- All rows are still written to the output workbook; the 1,000-point limit
-  applies only to the visual preview.
+- EPSG:4326 — WGS 84.
+- EPSG:3857 — WGS 84 / Pseudo-Mercator (Web Mercator).
+- EPSG:2039 — Israeli TM Grid (ITM).
+- EPSG:28193 — Israeli Old Grid / Israeli CS Grid.
+- EPSG:27700 — OSGB36 / British National Grid.
+- EPSG:2154 — RGF93 v1 / Lambert-93.
+- WGS 84 / UTM zones 1–60, northern and southern hemispheres.
 
-## Libraries
+The search is local and does not require an API key or send search text to a
+remote service.
 
-- Proj4js for coordinate transformation.
-- SheetJS for browser-based spreadsheet reading and writing.
-- Leaflet 1.9.4 for maps.
-- OpenStreetMap standard tiles for normal interactive viewing.
+## Validation
+
+Each supported projected CRS has:
+
+- Expected projected coordinate bounds.
+- Geographic area-of-use bounds.
+- Coordinate-order checks.
+- Inverse geographic checks.
+- Transformation round-trip consistency checks.
+
+For EPSG:27700, the browser implementation uses a standard Helmert datum
+transformation. High-accuracy British surveying work should use the official
+OSTN grid transformation in specialist GIS or surveying software.
 
 ## GitHub Pages update
 
-Upload these files to the repository root:
+Upload to the repository root:
 
 - index.html
-- style-v2.1.css
-- app-v2.1.js
+- style-v2.2.css
+- app-v2.2.js
 - README.md
 
-The WordPress iframe URL does not change.
-
-After committing:
-
-1. Wait for GitHub Pages deployment.
-2. Hard-refresh the page:
-   - Windows: Ctrl+F5
-   - macOS: Command+Shift+R
-3. The iframe may need a greater height because the map adds vertical content.
-   A starting value of 1500–1700 px is reasonable.
+The WordPress iframe URL remains unchanged. After committing, wait for the
+GitHub Pages deployment and hard-refresh the page.

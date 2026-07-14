@@ -7,7 +7,7 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.1.css">
+  <link rel="stylesheet" href="style-v2.2.css">
 </head>
 <body>
   <main class="page">
@@ -15,8 +15,9 @@
       <header>
         <h1 id="page-title">Coordinate Converter</h1>
         <p>
-          Convert a single coordinate or an Excel/CSV file between WGS 84,
-          Israeli TM Grid, Israeli Old Grid, and validated UTM zones.
+          Convert a single coordinate or an Excel/CSV file using a searchable
+          local CRS catalog, including WGS 84, Israeli grids, UTM, Web Mercator,
+          British National Grid, and Lambert-93.
         </p>
       </header>
 
@@ -203,6 +204,16 @@
         </section>
       </section>
 
+
+      <details class="catalog-details">
+        <summary>Supported CRS catalog</summary>
+        <div id="supported-crs-list" class="supported-crs-list"></div>
+        <p class="help-text">
+          Search is local and works without an API key. Only systems listed here
+          can be selected in version 2.2.
+        </p>
+      </details>
+
       <aside class="note">
         <strong>Validation:</strong>
         Numeric format, coordinate order, CRS bounds, area of use, UTM zone and
@@ -222,13 +233,16 @@
       <fieldset class="crs-panel">
         <legend>Source coordinate system</legend>
         <label>
+          <span>Search source CRS</span>
+          <input data-role="source-search" class="crs-search" type="search"
+                 placeholder="Search by EPSG code or CRS name"
+                 autocomplete="off">
+        </label>
+        <div data-role="source-search-results" class="crs-search-results is-hidden"
+             role="listbox" aria-label="Source CRS search results"></div>
+        <label>
           <span>Source CRS</span>
-          <select data-role="source-crs">
-            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-            <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
-            <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
-            <option value="UTM">UTM</option>
-          </select>
+          <select data-role="source-crs"></select>
         </label>
 
         <div data-role="source-utm-options" class="utm-options is-hidden">
@@ -252,13 +266,16 @@
       <fieldset class="crs-panel">
         <legend>Target coordinate system</legend>
         <label>
+          <span>Search target CRS</span>
+          <input data-role="target-search" class="crs-search" type="search"
+                 placeholder="Search by EPSG code or CRS name"
+                 autocomplete="off">
+        </label>
+        <div data-role="target-search-results" class="crs-search-results is-hidden"
+             role="listbox" aria-label="Target CRS search results"></div>
+        <label>
           <span>Target CRS</span>
-          <select data-role="target-crs">
-            <option value="EPSG:2039">Israeli TM Grid (ITM) — EPSG:2039</option>
-            <option value="EPSG:4326">WGS 84 — Longitude / Latitude</option>
-            <option value="EPSG:28193">Israeli Old Grid (ICS) — EPSG:28193</option>
-            <option value="UTM">UTM</option>
-          </select>
+          <select data-role="target-crs"></select>
         </label>
 
         <div data-role="target-utm-options" class="utm-options is-hidden">
@@ -290,6 +307,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.1.js"></script>
+  <script src="app-v2.2.js"></script>
 </body>
 </html>
