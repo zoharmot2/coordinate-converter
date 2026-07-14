@@ -7,7 +7,7 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.2.css">
+  <link rel="stylesheet" href="style-v2.3.css">
 </head>
 <body>
   <main class="page">
@@ -63,6 +63,18 @@
             <div><dt id="single-result-y-label">Y</dt><dd id="single-result-y"></dd></div>
           </dl>
           <button id="single-copy" class="secondary" type="button">Copy result</button>
+          <button id="lookup-result-place" class="secondary" type="button">
+            Look up place name
+          </button>
+
+          <section id="single-place-result" class="place-result is-hidden" aria-live="polite">
+            <h3>Nearest mapped place or address</h3>
+            <p id="single-place-name"></p>
+            <dl id="single-place-details"></dl>
+            <p class="geocoding-attribution">
+              Place data © OpenStreetMap contributors, queried through Nominatim.
+            </p>
+          </section>
         </section>
 
         <section class="map-section" aria-labelledby="single-map-title">
@@ -75,6 +87,9 @@
               <button id="use-map-point" class="secondary compact" type="button" disabled>
                 Use map point as input
               </button>
+              <button id="lookup-map-place" class="secondary compact" type="button" disabled>
+                Look up selected place
+              </button>
               <button id="clear-map-point" class="secondary compact" type="button" disabled>
                 Clear point
               </button>
@@ -84,6 +99,27 @@
           <p id="map-coordinate-readout" class="help-text map-readout">
             Click anywhere on the map to select a location.
           </p>
+
+          <div id="cursor-coordinate-panel" class="cursor-coordinate-panel">
+            <strong>Coordinates under cursor</strong>
+            <div class="cursor-grid">
+              <span>WGS 84</span>
+              <code id="cursor-wgs84">Move the pointer over the map</code>
+              <span>Automatic UTM</span>
+              <code id="cursor-utm">—</code>
+              <span>Israeli TM Grid</span>
+              <code id="cursor-itm">Outside area of use</code>
+            </div>
+          </div>
+
+          <section id="map-place-result" class="place-result is-hidden" aria-live="polite">
+            <h3>Selected place</h3>
+            <p id="map-place-name"></p>
+            <dl id="map-place-details"></dl>
+            <p class="geocoding-attribution">
+              Place data © OpenStreetMap contributors, queried through Nominatim.
+            </p>
+          </section>
         </section>
 
       </section>
@@ -150,6 +186,11 @@
           <p class="help-text">
             When automatic target UTM is enabled, each row is assigned its correct
             UTM zone and the zone is recorded in the output file.
+          </p>
+          <p class="help-text policy-note">
+            Place-name lookup is intentionally limited to individual user-selected
+            points. The public Nominatim service is not used for automatic spreadsheet
+            enrichment or large batch reverse geocoding.
           </p>
         </section>
 
@@ -307,6 +348,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.2.js"></script>
+  <script src="app-v2.3.js"></script>
 </body>
 </html>
