@@ -1,4 +1,4 @@
-# Coordinate Converter v2.5.1
+# Coordinate Converter v2.5.2
 
 Coordinate Converter 2.5 is the Global CRS Expansion and Documentation release.
 
@@ -25,9 +25,14 @@ Upload these files to the repository root:
 - `app-v2.5.js`
 - `README.md`
 
-Use a cache-busting query such as `?v=2.5.1` and hard-refresh after deployment.
+Use a cache-busting query such as `?v=2.5.2` and hard-refresh after deployment.
 
 
 ## Version 2.5.1 interface refinement
 
 The former standalone **Supported CRS catalog** section has been merged into the **CRS documentation** tab. The documentation tab is now the single place for browsing, searching and reviewing all supported coordinate systems.
+
+
+## Version 2.5.2 interface cleanup
+
+Removed the remaining **Supported CRS Catalog** wording from the conversion interface. All CRS reference material is presented exclusively under the **CRS Documentation** tab.
