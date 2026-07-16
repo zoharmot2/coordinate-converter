@@ -152,42 +152,6 @@ progress{width:100%;height:18px}
   color:#64748b;
   font-size:.84rem;
 }
-.catalog-details{
-  margin-top:22px;
-  padding:14px 16px;
-  border:1px solid #d8dee6;
-  border-radius:9px;
-  background:#fff;
-}
-.catalog-details summary{
-  cursor:pointer;
-  font-weight:700;
-}
-.supported-crs-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px 16px;
-  margin-top:14px;
-}
-.supported-crs-item{
-  padding:9px 10px;
-  border:1px solid #e5e7eb;
-  border-radius:7px;
-  background:#f8fafc;
-}
-.supported-crs-item strong{
-  display:block;
-  color:#155e75;
-}
-.supported-crs-item span{
-  display:block;
-  margin-top:2px;
-  color:#4b5563;
-  font-size:.88rem;
-}
-@media(max-width:700px){
-  .supported-crs-list{grid-template-columns:1fr}
-}
 
 
 /* Version 2.3 — reverse geocoding and live cursor coordinates */
@@ -370,6 +334,7 @@ progress{width:100%;height:18px}
 
 /* Version 2.5 — global CRS expansion and English documentation center */
 .documentation-intro{margin:0 0 18px}.documentation-intro p{color:#4b5563;line-height:1.6}
+.documentation-note{margin-top:8px!important}
 .documentation-toolbar{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:18px}
 .documentation-layout{display:grid;grid-template-columns:minmax(250px,34%) minmax(0,1fr);gap:18px;align-items:start}
 .documentation-list{max-height:720px;overflow:auto;border:1px solid #d8dee6;border-radius:9px;padding:8px;background:#f8fafc}

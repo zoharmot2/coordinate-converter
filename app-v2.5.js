@@ -1650,31 +1650,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
   updateSingleInputLabels();
-  function renderSupportedCatalog() {
-    const container = $("supported-crs-list");
-    const fragment = document.createDocumentFragment();
-
-    CRS_CATALOG.forEach((item) => {
-      const card = document.createElement("div");
-      card.className = "supported-crs-item";
-
-      const title = document.createElement("strong");
-      title.textContent = item.key === "UTM" ? "UTM" : item.code;
-
-      const name = document.createElement("span");
-      name.textContent = item.key === "UTM"
-        ? "WGS 84 / UTM zones 1–60, north and south"
-        : item.name;
-
-      card.append(title, name);
-      fragment.appendChild(card);
-    });
-
-    container.replaceChildren(fragment);
-  }
-
-  renderSupportedCatalog();
-
   function renderDocumentation() {
     const list = $("documentation-list");
     const search = $("documentation-search");
