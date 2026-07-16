@@ -1,70 +1,28 @@
-# Coordinate Converter v2.4.1
+# Coordinate Converter v2.5.0
 
-Version 2.4.1 is a usability and interface refinement release based on version 2.4.
+Coordinate Converter 2.5 is the Global CRS Expansion and Documentation release.
 
-## Text update
+## New in 2.5
 
-The introductory sentence now reads:
+- Adds 25 global, continental and national coordinate reference systems.
+- Retains WGS 84, Web Mercator, ITM, ICS, dynamic UTM, British National Grid and Lambert-93.
+- Supports every listed CRS in single-point and Excel/CSV batch conversion.
+- Adds a dedicated **CRS documentation** tab.
+- All documentation content is written and displayed in English only.
+- Documentation can be searched by name, EPSG code, datum, projection or region.
+- Documentation entries include type, datum, projection, units, area of use, input order, common uses and limitations.
 
-> Convert a single coordinate or an Excel/CSV file using a searchable local CRS
-> catalog, including WGS 84, Israeli grids, UTM, Web Mercator, British National
-> Grid & Lambert-93.
+## Accuracy
 
-## Expanded introduction
+The application is suitable for general GIS, education and data integration. Some legacy datum transformations are implemented with browser-compatible Helmert parameters. Surveying, cadastral and other high-accuracy work should be verified against an authoritative national geodetic service and may require transformation grid files.
 
-A short explanation now tells users that the application can:
-
-- Convert one coordinate.
-- Process Excel and CSV files.
-- Display converted points on a map.
-- Copy coordinates in several CRS formats.
-- Look up mapped place names.
-- Create shareable conversion links.
-
-An expandable “How to use the converter” section explains the single-point,
-spreadsheet, and interactive-map workflows.
-
-## CRS labels
-
-The labels now read:
-
-- Selected Source CRS
-- Selected Target CRS
-
-These changes apply to both:
-
-- The Single coordinate tab.
-- The Excel / CSV batch tab.
-
-## Visual emphasis
-
-The selected source and target CRS dropdowns now use:
-
-- A stronger blue border.
-- A pale blue background.
-- Bold text.
-- A more visible blue focus state.
-
-## Workflow guidance
-
-The single-coordinate tab now shows:
-
-1. Step 1 — Select coordinate systems.
-2. Step 2 — Enter coordinates.
-3. Step 3 — Convert.
-
-## GitHub Pages update
+## Deployment
 
 Upload these files to the repository root:
 
-- index.html
-- style-v2.4.1.css
-- app-v2.4.1.js
-- README.md
+- `index.html`
+- `style-v2.5.css`
+- `app-v2.5.js`
+- `README.md`
 
-The WordPress iframe URL remains unchanged. To avoid cached content, use a
-version query such as:
-
-`?v=2.4.1`
-
-After deployment, hard-refresh the page.
+Use a cache-busting query such as `?v=2.5.0` and hard-refresh after deployment.

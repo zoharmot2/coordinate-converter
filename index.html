@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinate Converter</title>
-  <meta name="description" content="Convert single coordinates or spreadsheet files between WGS 84, Israeli grids and UTM.">
+  <meta name="description" content="Convert single coordinates or spreadsheet files between 32 supported global, continental and national coordinate reference systems.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.4.1.css">
+  <link rel="stylesheet" href="style-v2.5.css">
 </head>
 <body>
   <main class="page">
@@ -17,7 +17,7 @@
         <p>
           Convert a single coordinate or an Excel/CSV file using a searchable
           local CRS catalog, including WGS 84, Israeli grids, UTM, Web Mercator,
-          British National Grid &amp; Lambert-93.
+          British National Grid, Lambert-93 and 25 additional global and national systems.
         </p>
       </header>
 
@@ -72,10 +72,8 @@
                 role="tab" aria-selected="true" aria-controls="single-panel">
           Single coordinate
         </button>
-        <button id="batch-tab" class="tab-button" type="button"
-                role="tab" aria-selected="false" aria-controls="batch-panel">
-          Excel / CSV batch
-        </button>
+        <button id="batch-tab" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="batch-panel">Excel / CSV batch</button>
+        <button id="documentation-tab" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="documentation-panel">CRS documentation</button>
       </nav>
 
       <section id="single-panel" class="tab-panel" role="tabpanel"
@@ -325,12 +323,17 @@
         </section>
       </section>
 
+      <section id="documentation-panel" class="tab-panel is-hidden" role="tabpanel" aria-labelledby="documentation-tab">
+        <header class="documentation-intro"><h2>Coordinate Reference System Documentation</h2><p>Explore the definitions, areas of use, input conventions, practical applications and limitations of every CRS supported by Coordinate Converter 2.5. Documentation is provided in English only.</p></header>
+        <div class="documentation-toolbar"><label><span>Search documentation</span><input id="documentation-search" type="search" placeholder="Search by CRS name, EPSG code, datum or region"></label><label><span>Region</span><select id="documentation-region"><option value="">All regions</option></select></label></div>
+        <div class="documentation-layout"><aside id="documentation-list" class="documentation-list" aria-label="Documented coordinate systems"></aside><article id="documentation-details" class="documentation-details"></article></div>
+      </section>
 
       <details class="catalog-details">
         <summary>Supported CRS catalog</summary>
         <div id="supported-crs-list" class="supported-crs-list"></div>
         <p class="help-text">
-          Search is local and works without an API key. Version 2.4 also supports
+          Search is local and works without an API key. Version 2.5 also supports
           shareable conversion links that preserve the selected systems and coordinate.
         </p>
       </details>
@@ -428,6 +431,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.20.9/dist/proj4.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.4.1.js"></script>
+  <script src="app-v2.5.js"></script>
 </body>
 </html>
